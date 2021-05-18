@@ -54,7 +54,7 @@ export default function Login(){
                     onClick={async () => {
                         await firebase.auth().createUserWithEmailAndPassword
                         (email,pass).then(function() {
-                            
+
                             window.location.href = "/authenticated"
                         }).catch(function (error) {
                             const message = error.message;

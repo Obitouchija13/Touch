@@ -1,11 +1,10 @@
 import React from "react";
-import Link from "next/link";
 import {useAuth} from "../auth";
 import Container from "../components/container";
 import {Flex, Box, Button, Text, Heading, Stack} from "@chakra-ui/core";
 import firebase from "firebase/app";
 import "firebase/auth";
-
+import NextNprogress from 'nextjs-progressbar';
 
 
 
@@ -14,9 +13,23 @@ export default function Authenticated() {
 
   const {user} = useAuth();
 
-  if(!user)
-    return (<p>Redirecting...</p>);
-    
+    if(user){
+
+    }else{
+     return <Container>
+     <Flex>
+     <NextNprogress
+   color="#29D"
+   startPosition={0.3}
+   stopDelayMs={200}
+   height="3"
+ />
+
+     </Flex>
+   </Container>
+    }
+  
+  
     return (
       <Container>
         <Flex>

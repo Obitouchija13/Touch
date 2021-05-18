@@ -18,7 +18,7 @@ function MyApp({ Component, pageProps }) {
     
     firebase.auth().onAuthStateChanged(function(user) {
       if (!user) {
-        // User is signed in.
+        // User is not signed in.
         router.push('/login');
       }
     });
