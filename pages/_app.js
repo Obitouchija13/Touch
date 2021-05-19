@@ -3,7 +3,6 @@ import {CSSReset,ThemeProvider} from "@chakra-ui/core";
 import firebase from "firebase/app";
 import "firebase/auth";
 import loadFb from "../firebase.config";
-import Router from 'next/router'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 
