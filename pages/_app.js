@@ -1,11 +1,12 @@
 import {AuthProvider} from '../auth';
-import {CSSReset,ThemeProvider} from "@chakra-ui/core";
 import firebase from "firebase/app";
 import "firebase/auth";
 import loadFb from "../firebase.config";
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
-
+import TopBar from '../components/topbar';
+import { Col, Container, Row } from 'react-bootstrap';
+import '../styles/globals.css';
 
 
 
@@ -26,12 +27,11 @@ function MyApp({ Component, pageProps }) {
   
   
   return (
-    <ThemeProvider>
-      <CSSReset />
+    
       <AuthProvider>
-        <Component {...pageProps} />
+            <Component {...pageProps} />
       </AuthProvider>
-    </ThemeProvider>
+    
   );
 }
 
