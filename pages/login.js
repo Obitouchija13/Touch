@@ -1,13 +1,8 @@
 import React, {useState} from "react"
-import loadFb from "../firebase.config";
-
 import "firebase/auth";
-
-import { useAuth } from "../auth";
 import firebase from "firebase/app";
 import "firebase/database";
-import TopBar from '../components/topbar';
-import { Container, Row, Col } from "reactstrap";
+
 
 export default function Login(){
     
@@ -17,20 +12,23 @@ export default function Login(){
     const [rol, setRol] = useState("");
     var db = firebase.firestore();
     
+    
+   
+    
     return(
     
     
         <div>
-                
+                   <div className="row">
+                    <h1>Touch</h1>
+                    </div>
+                    <div className="row">
                     <input onChange={(e)=> setEmail(e.target.value)}
                     type="email"
                     id="emailAddress"
                     value={email}
                     aria-describedby="email-helper-text">
                     </input>
-             
-                
-                
                     <input onChange={(e)=> setPass(e.target.value)}
                     type="password"
                     id="pass"
@@ -38,49 +36,41 @@ export default function Login(){
                     aria-describedby="password-helper-text">
                         
                     </input>
-              
-                
-                
-                <input onChange={(e)=> setRol(e.target.value)}
-                type="text"
-                id="rol"
-                value={rol}
-                placeholder="Waiter/Kitchen/Owner"
-                aria-describedby="rol-helper-text">
-                    
-                </input>
+
+                <select id="ddlViewBy">
+                    <option value="owner" selected="selected">Owner</option>
+                    <option value="kitchen" >Kitchen</option>
+                    <option value="waiter"  >Waiter</option>
+                </select>
             
                 
                 
                 
-                    <button minWidth="40%" variant="solid"
+                    <button  variant="solid"
                     variantColor="blue" isDisabled={email === "" || pass===""}
                     onClick={async () => {
                         await firebase.auth().createUserWithEmailAndPassword
                         (email,pass).then(function() {
-                            if(rol == "Owner"){
-                                window.location.href = "/owner/owner"
-                            }else if(rol == "Waiter"){
-                                window.location.href = "/waiter/index"
-                            }else if(rol == "Chef"){
-                                window.location.href = "/kitchen/kitchen"
-                            }
+                            var e = document.getElementById("ddlViewBy");
+                            var strUser = e.value;
+                                    db.collection("users").doc(email).set({
+                                        email: email,
+                                        password: pass,
+                                    })
+                                    .then(() => {
+                                        console.log("Document successfully written!");
+                                    })
+                                    .catch((error) => {
+                                        console.error("Error writing document: ", error);
+                                    });
+                                    window.location.href = "/"+strUser;
+                                
+                           
                         }).catch(function (error) {
                             const message = error.message;
-                            toast({
-                                title: "An error occured",
-                                description: message,
-                                status:"error",
-                                duration: 9000,
-                                isClosable: true,
-                            })
-                            
+    
                         })
-                       
-                        
-                        
-                        
-                        
+  
                     }}>
                         Create Account
                     </button>
@@ -89,28 +79,21 @@ export default function Login(){
                     onClick={async () => {
                         await firebase.auth().signInWithEmailAndPassword
                         (email,pass).then(function() {
-                            if(rol == "Owner"){
-                                window.location.href = "/owner/owner"
-                            }else if(rol == "Waiter"){
-                                window.location.href = "/waiter"
-                            }else if(rol == "Chef"){
-                                window.location.href = "/kitchen/kitchen"
-                            }
+                            var e = document.getElementById("ddlViewBy");
+                            var strUser = e.value;
+
+                                window.location.href = "/"+strUser;
+ 
                         }).catch(function (error) {
                             const message = error.message;
-                            toast({
-                                title: "An error occured",
-                                description: message,
-                                status:"error",
-                                duration: 9000,
-                                isClosable: true,
-                            })
-                            
+   
                         })
-      
                     }}>
                         Login
                     </button>
                     </div>
+                </div>
+        
+        
     );
 }

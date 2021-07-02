@@ -1,39 +1,21 @@
 .column {
-  float: left;
-  width: 90%;
-  font-size: 25px;
-  cursor: pointer;
   color: rgb(0, 0, 0);
+  border-radius: 1px;
+  border: solid;
+  border-color: rgb(0, 0, 0);
+  display: inline;
   
-}
-.sideBar {
-  float: left;
-  width: 10%;
-  font-size: 25px;
-  cursor: pointer;
-  color: rgb(0, 0, 0);
   
 }
 
-.containerTab {
-  padding: 20px;
-  color: white;
- 
-}
 
 /* Clear floats after the columns */
 .row {
-  content: "";
-  display: flex;
-  clear: both;
- 
+  color: rgb(0, 0, 0);
+  border-radius: 1px;
+  border: solid;
+  border-color: rgb(253, 152, 0);
+  display:flex;
 }
 
-/* Closable button inside the container tab */
-.closeBtn {
 
-  float: right;
-  color: white;
-  font-size: 35px;
-  cursor: pointer;
-}

@@ -80,7 +80,8 @@ export default function Waiter() {
                       });
                       
                   });
-
+                  
+    
               }}>
                 Sing Out
             </button>
@@ -88,14 +89,6 @@ export default function Waiter() {
         </div>
             
       </div>
-                        
-         
-      
-        
-
-              
-      
-            
-            
+       
       );
 }
