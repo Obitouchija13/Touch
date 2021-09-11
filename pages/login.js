@@ -47,7 +47,7 @@ export default function Login(){
                 
                 
                     <button  variant="solid"
-                    variantColor="blue" isDisabled={email === "" || pass===""}
+                    
                     onClick={async () => {
                         await firebase.auth().createUserWithEmailAndPassword
                         (email,pass).then(function() {
@@ -74,8 +74,8 @@ export default function Login(){
                     }}>
                         Create Account
                     </button>
-                    <button minWidth="40%" variant="solid"
-                    variantColor="blue" isDisabled={email === "" || pass===""}
+                    <button  variant="solid"
+                     
                     onClick={async () => {
                         await firebase.auth().signInWithEmailAndPassword
                         (email,pass).then(function() {
