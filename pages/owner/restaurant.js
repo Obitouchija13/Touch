@@ -23,7 +23,17 @@ export default function Restaurant() {
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           var elem = document.createElement("div");
+          var elem2 = document.createElement("button");
           var elemText = document.createTextNode(doc.id);
+          elem2.innerHTML = "Eliminar mesa";
+          elem2.addEventListener("click", function () {
+            db.collection("restaurants").doc(router.query.email).collection("tables").doc(doc.id).delete().then(() => {
+              console.log("Document successfully deleted!");
+          }).catch((error) => {
+              console.error("Error removing document: ", error);
+          });
+          });
+          
           elem.appendChild(elemText);
           var e = document.getElementById("tables");
           elem.classList.add("column");
@@ -33,6 +43,7 @@ export default function Restaurant() {
               query: { id: doc.id, email: router.query.email },
             });
           });
+          elem.appendChild(elem2);
           e.appendChild(elem);
           console.log(doc.id, " => ", doc.data());
         });
@@ -52,6 +63,12 @@ export default function Restaurant() {
           elem.appendChild(elemText);
           var e = document.getElementById("team");
           elem.classList.add("column");
+          elem.addEventListener("click", function () {
+            router.push({
+              pathname: "/owner/user",
+              query: { id: doc.id},
+            });
+          });
           e.appendChild(elem);
         });
       })
@@ -63,7 +80,7 @@ export default function Restaurant() {
   function toggle2() {
     setShowMe2(!showMe2);
   }
-  function toggle3() {
+  function viewTeam() {
     setShowMe3(!showMe3);
   }
   function viewTables() {
@@ -139,7 +156,7 @@ export default function Restaurant() {
             Opciones:
             <div onClick={viewTables}>Mesas</div>
             <div onClick={toggle2}>Carta</div>
-            <div onClick={toggle3}>Equipo</div>
+            <div onClick={viewTeam}>Equipo</div>
           </div>
           <div className="column">
             Contenido:
@@ -206,7 +223,16 @@ export default function Restaurant() {
                         console.error("Error writing document: ", error);
                       });
                     var elem = document.createElement("div");
+                    var elem2 = document.createElement("button");
                     var elemText = document.createTextNode(id);
+                    elem2.innerHTML = "Eliminar mesa";
+                    elem2.addEventListener("click", function () {
+                      db.collection("restaurants").doc(router.query.email).collection("tables").doc(id).delete().then(() => {
+                        console.log("Document successfully deleted!");
+                    }).catch((error) => {
+                        console.error("Error removing document: ", error);
+                    });
+                    });
                     elem.appendChild(elemText);
                     var e = document.getElementById("tables");
                     elem.classList.add("column");
@@ -216,6 +242,7 @@ export default function Restaurant() {
                         query: { id: id, email: router.query.email },
                       });
                     });
+                    elem.appendChild(elem2);
                     e.appendChild(elem);
                   }}
                 >
@@ -252,7 +279,7 @@ export default function Restaurant() {
               className="row"
               style={{ display: showMe3 ? "block" : "none" }}
             >
-              <span onClick={toggle3} className="closebtn">
+              <span onClick={viewTeam} className="closebtn">
                 &times;
               </span>
               <h2>Equipo</h2>             
